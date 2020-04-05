@@ -5,7 +5,7 @@ export const ProcessContext = {
   compose: (Storage: IProcessStorage) => (ProcessID: string, Process: string): IProcessContext => ({
     PrepareProcess: {
       getData: async (process) =>
-        Storage.PrepareProcess.getData(ProcessID, process),
+        Storage.PrepareProcess.getData(ProcessID, process || Process),
       setData: async (data) =>
         Storage.PrepareProcess.setData(ProcessID, Process, data),
     },
