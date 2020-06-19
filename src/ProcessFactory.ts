@@ -23,7 +23,7 @@ export const ProcessFactory = {
               data: result,
             };
           },
-          process: async (processID, data) => {
+          process: async (processID = UUID.v4(), data) => {
             const {
               verifyException = VerifyException,
               verifyProcess = VerifyProcess,
