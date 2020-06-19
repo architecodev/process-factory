@@ -8,11 +8,22 @@ export const ProcessFactory = {
   createInstance: (Storage: IProcessStorage): IProcessFactory => {
     return {
       createProcess: (Process) => {
-        const { name, prepareHandler, processHandler, options = {} } = Process;
+        const {
+          name,
+          prepareHandler = async (proccesID, data, context) => {
+            if (data) {
+              await context.Prepare.setData(data);
+            }
+
+            return undefined as any;
+          },
+          processHandler,
+          options = {},
+        } = Process;
         const Context = ProcessContextFactory.createInstance(Storage);
 
         return {
-          prepare: async (processID = UUID.v4(), data) => {
+          prepare: async ({ processID = UUID.v4(), data } = {}) => {
             await Storage.Flow.setProcess(processID, name);
             const context = Context.resolve(processID, name);
             const result = await prepareHandler(processID, data, context);
@@ -23,7 +34,7 @@ export const ProcessFactory = {
               data: result,
             };
           },
-          process: async (processID = UUID.v4(), data) => {
+          process: async ({ processID = UUID.v4(), data }) => {
             const {
               verifyException = VerifyException,
               verifyProcess = VerifyProcess,
@@ -36,13 +47,8 @@ export const ProcessFactory = {
             }
 
             const context = Context.resolve(processID, name);
-            const result = await processHandler(processID, data, context);
 
-            return {
-              processID,
-              name,
-              data: result,
-            };
+            return processHandler(processID, data, context);
           },
         };
       },
