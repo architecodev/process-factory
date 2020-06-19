@@ -15,7 +15,7 @@ export const ProcessFactory = {
           prepare: async (processID = UUID.v4(), data) => {
             await Storage.Flow.setProcess(processID, name);
             const context = Context.resolve(processID, name);
-            const result = await prepareHandler({ processID, data }, context);
+            const result = await prepareHandler(processID, data, context);
 
             return {
               processID,
@@ -36,7 +36,7 @@ export const ProcessFactory = {
             }
 
             const context = Context.resolve(processID, name);
-            const result = await processHandler({ processID, data }, context);
+            const result = await processHandler(processID, data, context);
 
             return {
               processID,
