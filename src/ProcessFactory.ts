@@ -1,44 +1,50 @@
 import * as UUID from "uuid";
 import { IProcessFactory } from "./IProcessFactory";
-import { IProcessStorageConfigs } from "./IProcessStorageConfigs";
-import { IProcessStorageFactory } from "./IProcessStorageFactory";
-import { ProcessContext } from "./ProcessContext";
+import { IProcessStorage } from "./IProcessStorage";
+import { ProcessContextFactory } from "./core/ProcessContextFactory";
+import { VerifyException, VerifyProcess } from "./options";
 
 export const ProcessFactory = {
-  setup: (StorageFactory: IProcessStorageFactory, configs: IProcessStorageConfigs): IProcessFactory => {
-    const Storage = StorageFactory.setup(configs);
-    const Context = ProcessContext.compose(Storage);
-
+  createInstance: (Storage: IProcessStorage): IProcessFactory => {
     return {
-      create: (struct) => {
-        const {
-          name,
-          prepareStruct,
-          processStruct,
-        } = struct;
+      createProcess: (Process) => {
+        const { name, prepareHandler, processHandler, options = {} } = Process;
+        const Context = ProcessContextFactory.createInstance(Storage);
 
         return {
-          prepareProcess: async (processID, data) => {
-            processID = processID || UUID.v4();
-            let response;
-
-            if (prepareStruct) {
-              response = await prepareStruct(processID, data, Context(processID, name));
-            }
+          prepare: async (processID = UUID.v4(), data) => {
+            await Storage.Flow.setProcess(processID, name);
+            const context = Context.resolve(processID, name);
+            const result = await prepareHandler({ processID, data }, context);
 
             return {
-              data: response,
               processID,
-              process: name,
+              name,
+              data: result,
             };
           },
           process: async (processID, data) => {
-            const response = await processStruct(processID, data, Context(processID, name));
-            await Storage.Flow.setProcess(processID, response.process);
+            const {
+              verifyException = VerifyException,
+              verifyProcess = VerifyProcess,
+            } = options;
 
-            return response;
+            const isVerified = await verifyProcess(Storage, processID, name);
+
+            if (!isVerified) {
+              throw verifyException({ processID, name });
+            }
+
+            const context = Context.resolve(processID, name);
+            const result = await processHandler({ processID, data }, context);
+
+            return {
+              processID,
+              name,
+              data: result,
+            };
           },
-        }
+        };
       },
     };
   },
