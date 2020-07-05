@@ -12,9 +12,11 @@ export interface IProcessFactory {
     prepareHandler?: (processID: string, data: PrepareData, context: IProcessContext) => Promise<any>;
     processHandler: (processID: string, data: ProcessData, context: IProcessContext) => Promise<any>;
     options?: {
+      isErrorThrown?: boolean;
+      isFinishProcess?: boolean;
+      ttl?: number;  // DEFAULT ttl (Time-to-Live): 3600
       verifyException?: () => any;
-      verifyProcess?: (Storage: IProcessStorage, processID: string, name: string) => Promise<boolean>;
-      ttl?: number; // Default Time-to-Live: 3600
+      verifyProcess?: (Storage: IProcessStorage, processID: string, name: string) => Promise<{ isVerified: boolean; nextProcess: string; }>;
     };
   }) => {
     prepare: (props?: { processID?: string; data?: PrepareData; }) => Promise<{

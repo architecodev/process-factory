@@ -21,13 +21,40 @@ export const ProcessContextFactory = {
             await Storage.Process.setData(processID, process, data, { ttl: options.ttl || Options.ttl });
           },
         },
-        done: async () => {
+        done: async (data) => {
           await Storage.Flow.doneProcess(processID);
 
           return {
+            success: true,
             processID,
-            name: "COMPLETED",
+            data,
           };
+        },
+        error: async (error, options = {}) => {
+          const {
+            isErrorThrown = false,
+            isFinishProcess = false,
+          } = options;
+
+          if (isErrorThrown && error) {
+            await Storage.Flow.doneProcess(processID);
+
+            throw error;
+          } else if (isFinishProcess) {
+            await Storage.Flow.doneProcess(processID);
+
+            return {
+              success: false,
+              processID,
+              error,
+            };
+          } else {
+            return {
+              processID,
+              nextProcess: error && error.nextProcess ? error.nextProcess : process,
+              error,
+            };
+          }
         },
       };
     },

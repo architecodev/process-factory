@@ -1,6 +1,6 @@
 {
   "name": "process-factory",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "Provide Process Factory",
   "private": false,
   "main": "./lib/index.js",
@@ -33,6 +33,7 @@
   "license": "MIT",
   "repository": "git+https://github.com/architecodev/process-factory",
   "dependencies": {
+    "process-factory-core": "^0.0.4",
     "uuid": "8.2.0"
   },
   "devDependencies": {

@@ -13,13 +13,13 @@ export const ProcessFactory = {
           if (data) {
             await context.Prepare.setData(data);
           }
-
-          return undefined as any;
         },
         processHandler,
         options = {},
       } = Process;
       const {
+        isErrorThrown = false,
+        isFinishProcess = false,
         ttl = 3600,
         verifyException = VerifyException,
         verifyProcess = VerifyProcess,
@@ -43,13 +43,22 @@ export const ProcessFactory = {
           };
         },
         process: async ({ processID = UUID.v4(), data }) => {
-          const isVerified = await verifyProcess(Storage, processID, name);
+          const context = Context.resolve(processID, name);
 
-          if (!isVerified) {
-            throw verifyException({ processID, name });
+          if (!isFinishProcess) {
+            const { isVerified, nextProcess } = await verifyProcess(Storage, processID, name);
+
+            if (!isVerified) {
+              const error = verifyException({ processID, name, nextProcess });
+
+              if (isErrorThrown) {
+                throw error;
+              } else {
+                return context.error(error);
+              }
+            }
           }
 
-          const context = Context.resolve(processID, name);
           const anyData: any = data;
           const result = await processHandler(processID, anyData, context);
 
