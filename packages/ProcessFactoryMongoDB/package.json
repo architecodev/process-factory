@@ -1,6 +1,6 @@
 {
   "name": "process-factory-mongodb",
-  "version": "0.0.5-alpha.0",
+  "version": "0.0.5",
   "description": "Provide MongoDB Process Storage",
   "private": false,
   "main": "./lib/index.js",
@@ -36,11 +36,11 @@
     "process-factory": "0.0.4"
   },
   "dependencies": {
-    "mongodb": "3.5.9"
+    "mongodb": "3.5.9",
+    "process-factory-core": "^0.0.5"
   },
   "devDependencies": {
     "@types/mongodb": "3.5.25",
-    "archdevts": "20.5.31",
-    "process-factory": "^0.0.5-alpha.0"
+    "archdevts": "20.5.31"
   }
 }

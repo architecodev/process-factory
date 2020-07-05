@@ -1,5 +1,5 @@
 {
-  "name": "process-factory",
+  "name": "process-factory-core",
   "version": "0.0.5",
   "description": "Provide Process Factory",
   "private": false,
@@ -32,11 +32,7 @@
   "author": "Architecode Corporation",
   "license": "MIT",
   "repository": "git+https://github.com/architecodev/process-factory",
-  "dependencies": {
-    "uuid": "8.2.0"
-  },
   "devDependencies": {
-    "@types/uuid": "8.0.0",
     "archdevts": "20.5.31"
   }
 }
