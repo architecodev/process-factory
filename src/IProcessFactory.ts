@@ -9,8 +9,8 @@ export type AnyProcessResult = any;
 export interface IProcessFactory {
   createProcess: <PrepareData = AnyPrepareData, ProcessData = AnyProcessData>(Process: {
     name: string;
-    prepareHandler?: (processID: string, data: PrepareData | undefined, context: IProcessContext) => Promise<any>;
-    processHandler: (processID: string, data: ProcessData | undefined, context: IProcessContext) => Promise<any>;
+    prepareHandler?: (processID: string, data: PrepareData, context: IProcessContext) => Promise<any>;
+    processHandler: (processID: string, data: ProcessData, context: IProcessContext) => Promise<any>;
     options?: {
       verifyException?: () => any;
       verifyProcess?: (Storage: IProcessStorage, processID: string, name: string) => Promise<boolean>;
@@ -19,13 +19,9 @@ export interface IProcessFactory {
   }) => {
     prepare: (props?: { processID?: string; data?: PrepareData; }) => Promise<{
       processID: string;
-      name: string;
+      nextProcess: string;
       data?: any;
     }>;
-    process: (props: { processID: string; data?: ProcessData; }) => Promise<{
-      processID: string;
-      name: string;
-      data?: any;
-    }>;
+    process: (props: { processID: string; data?: ProcessData; }) => Promise<any>;
   };
 }
