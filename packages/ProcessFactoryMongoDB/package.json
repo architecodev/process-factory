@@ -1,6 +1,6 @@
 {
   "name": "process-factory-mongodb",
-  "version": "0.0.7-alpha.1",
+  "version": "0.0.7-alpha.2",
   "description": "Provide MongoDB Process Storage",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -33,11 +33,11 @@
   "repository": "git+https://github.com/architecodev/process-factory",
   "dependencies": {
     "mongodb": "3.5.9",
-    "process-factory-core": "^0.0.7-alpha.1"
+    "process-factory-core": "^0.0.7-alpha.2"
   },
   "devDependencies": {
     "@types/mongodb": "3.5.25",
     "archdevts": "20.5.31"
   },
-  "gitHead": "f5e00682940dcaede78fb1bb99195e877037c071"
+  "gitHead": "dad207baea5582059863d78df0b2c2261411c7e1"
 }
