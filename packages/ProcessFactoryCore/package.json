@@ -1,6 +1,6 @@
 {
   "name": "process-factory-core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Provide Process Factory",
   "private": false,
   "main": "./lib/index.js",
@@ -34,5 +34,6 @@
   "repository": "git+https://github.com/architecodev/process-factory",
   "devDependencies": {
     "archdevts": "20.5.31"
-  }
+  },
+  "gitHead": "fbaa6dd26dba471ab3222a3c39bcef83cfe882cc"
 }
