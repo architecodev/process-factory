@@ -1,5 +1,8 @@
-import { IProcessContext } from "../IProcessContext";
-import { IProcessStorage, IProcessStorageOptions } from "../IProcessStorage";
+import {
+  IProcessContext,
+  IProcessStorage,
+  IProcessStorageOptions,
+} from "process-factory-core";
 
 export const ProcessContextFactory = {
   createInstance: (Storage: IProcessStorage, Options: IProcessStorageOptions) => ({

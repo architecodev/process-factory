@@ -1,6 +1,9 @@
 import * as UUID from "uuid";
-import { IProcessFactory } from "./IProcessFactory";
-import { IProcessStorage, IProcessStorageOptions } from "./IProcessStorage";
+import {
+  IProcessFactory,
+  IProcessStorage,
+  IProcessStorageOptions
+} from "process-factory-core";
 import { ProcessContextFactory } from "./core/ProcessContextFactory";
 import { VerifyException, VerifyProcess } from "./options";
 

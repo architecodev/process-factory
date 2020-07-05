@@ -1,6 +1,6 @@
 {
   "name": "process-factory",
-  "version": "0.0.7-alpha.0",
+  "version": "0.0.7-alpha.1",
   "description": "Provide Process Factory",
   "private": false,
   "main": "./lib/index.js",
@@ -27,17 +27,18 @@
     "test-mocha-cvr": "nyc mocha -r ts-node/register/transpile-only './src/**/*.spec.ts' --timeout 60000 --exit",
     "coverage": "npm run coveralls",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "prepublishOnly": "npm i && npm run build"
+    "prepublishOnly": "npm run build && npm run aftertests"
   },
   "author": "Architecode Corporation",
   "license": "MIT",
   "repository": "git+https://github.com/architecodev/process-factory",
   "dependencies": {
-    "process-factory-core": "^0.0.7-alpha.0",
+    "process-factory-core": "0.0.7-alpha.1",
     "uuid": "8.2.0"
   },
   "devDependencies": {
     "@types/uuid": "8.0.0",
     "archdevts": "20.5.31"
-  }
+  },
+  "gitHead": "f5e00682940dcaede78fb1bb99195e877037c071"
 }
