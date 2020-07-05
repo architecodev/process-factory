@@ -1,5 +1,5 @@
 import * as MongoDB from "mongodb";
-import { IProcessStorage } from "process-factory";
+import { IProcessStorage } from "process-factory-core";
 
 const resolveExpiredAt = (options: { ttl: number; }) => {
   const now = Date.now();
