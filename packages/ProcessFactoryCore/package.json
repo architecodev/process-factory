@@ -1,6 +1,6 @@
 {
   "name": "process-factory-core",
-  "version": "0.0.7-alpha.2",
+  "version": "0.0.7",
   "description": "Provide Process Factory",
   "private": false,
   "main": "./lib/index.js",
