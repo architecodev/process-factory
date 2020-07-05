@@ -33,7 +33,7 @@
   "license": "MIT",
   "repository": "git+https://github.com/architecodev/process-factory",
   "dependencies": {
-    "process-factory-core": "0.0.7-alpha.1",
+    "process-factory-core": "^0.0.7-alpha.1",
     "uuid": "8.2.0"
   },
   "devDependencies": {
