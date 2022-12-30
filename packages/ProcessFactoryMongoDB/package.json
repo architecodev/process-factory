@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/mongodb": "3.5.25",
-    "archdevts": "20.5.31"
+    "archdevts": "20.12.19"
   },
   "gitHead": "dad207baea5582059863d78df0b2c2261411c7e1"
 }
